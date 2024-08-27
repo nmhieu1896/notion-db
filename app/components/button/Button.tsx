@@ -7,129 +7,51 @@ import { Button as BaseButton } from "react-aria-components";
  * Tailwind Classes lookup directory
  */
 const baseClasses = [
-  "transition-all border w-full",
+  "transition-all border rounded-lg",
   "disabled:cursor-not-allowed",
-  "focus-visible:outline-none focus-visible:ring",
-  "grid grid-flow-col auto-cols-max items-center justify-center",
+  "flex items-center",
 ];
 
 const colorClasses = {
-  primary: {
+  blue: {
     filled: [
-      "focus-visible:to-blue-400",
-      "text-secondary-100 bg-primary border-primary",
-      "hover:drop-shadow-btn",
+      "border border-blue-400 bg-blue-100 [--tw-bg-opacity:0.7] text-blue-700",
+      "hover:drop-shadow-btn hover:[--tw-bg-opacity:1]",
+      "[&_svg]:fill-blue-700",
       "disabled:hover:drop-shadow-none",
-      "disabled:text-text-30 disabled:bg-primary disabled:bg-btn disabled:border-transparent",
     ],
     outlined: [
-      "focus-visible:to-blue-400",
-      "text-primary border-primary",
-      "hover:text-secondary-100 hover:bg-primary hover:border-primary",
-      "hover:drop-shadow-btn",
+      "border border-blue-700 text-blue-700",
+      "hover:drop-shadow-btn hover:bg-blue-100",
+      "[&_svg]:fill-blue-700",
       "disabled:hover:drop-shadow-none",
-      "disabled:text-text-30 disabled:bg-primary disabled:bg-btn disabled:border-transparent",
     ],
     text: [
-      "focus-visible:to-blue-400",
-      "text-primary border-none",
-      "hover:bg-primary-600/[.08]",
-      "disabled:text-primary-500/80 disabled:bg-transparent",
+      "text-blue-700",
+      "border-none",
+      "disabled:hover:drop-shadow-none hover:bg-blue-100",
+      "[&_svg]:fill-blue-700",
     ],
   },
-  error: {
-    filled: ["bg-error border-error"],
-    outlined: ["text-error border-error", "hover:bg-error hover:text-secondary-100"],
-    text: ["text-error border-none"],
-  },
-  default: {
+  gray: {
     filled: [
-      "focus-visible:ring-orange-600",
-      "text-secondary-400 bg-grey-300 border-grey-300",
-      "hover:text-secondary-400 hover:bg-grey-300 hover:border-grey-300",
-      "disabled:text-grey-500/80 disabled:bg-grey-500/[.24] disabled:border-grey-500/[.24]",
-      "shadow-btn-default-filled",
+      "border border-borderColor bg-gray-200 [--tw-bg-opacity:0.7]",
+      "hover:drop-shadow-btn hover:[--tw-bg-opacity:1]",
+      "disabled:hover:drop-shadow-none",
     ],
     outlined: [
-      "focus-visible:ring-orange-600",
-      "text-white border-text-50",
-      "hover:text-white hover:border-grey-500/[.32]",
-      "disabled:text-grey-500/80 disabled:border-grey-500/[.24]",
+      "border border-borderColor",
+      "hover:drop-shadow-btn hover:bg-neutral-100",
+      "disabled:hover:drop-shadow-none",
     ],
-    text: [
-      "focus-visible:ring-orange-600",
-      "text-white border-none",
-      "hover:bg-white/[.08]",
-      "disabled:text-grey-500/80 disabled:bg-transparent",
-    ],
-  },
-  "bo-primary": {
-    filled: [
-      "focus-visible:shadow-bo-primary-btn focus-visible:ring-0",
-      "text-bo-white bg-bo-primary border-bo-primary",
-      "hover:shadow-bo-primary-btn",
-      "disabled:text-bo-gray disabled:bg-bo-gray-300 disabled:border-transparent disabled:hover:shadow-none",
-    ],
-    outlined: [
-      "focus-visible:shadow-bo-primary-btn focus-visible:ring-0",
-      "text-bo-primary border-bo-primary",
-      "hover:text-bo-primary hover:bg-bo-primary-50 hover:border-bo-primary hover:shadow-bo-primary-btn",
-      "disabled:text-bo-primary-200 disabled:border-bo-primary-200 disabled:bg-transparent disabled:hover:shadow-none",
-    ],
-    text: [
-      "focus-visible:shadow-bo-primary-btn focus-visible:ring-0",
-      "text-bo-primary border-none",
-      "hover:bg-bo-primary-100",
-      "disabled:opacity-50 disabled:bg-transparent disabled:hover:shadow-none",
-    ],
-  },
-  "bo-error": {
-    filled: [
-      "focus-visible:shadow-bo-error-btn focus-visible:ring-0",
-      "bg-bo-error border-bo-error text-bo-white",
-      "hover:shadow-bo-error-btn",
-      "disabled:opacity-50 disabled:hover:shadow-none",
-    ],
-    outlined: [
-      "focus-visible:shadow-bo-error-btn focus-visible:ring-0",
-      "text-bo-error border-bo-error",
-      "hover:bg-bo-error-50 hover:text-bo-error hover:shadow-bo-error-btn",
-      "disabled:opacity-50 disabled:hover:shadow-none",
-    ],
-    text: [
-      "focus-visible:shadow-bo-error-btn focus-visible:ring-0",
-      "text-bo-error border-none",
-      "hover:shadow-bo-error-btn hover:bg-bo-error-100",
-      "disabled:opacity-50 disabled:hover:shadow-none",
-    ],
-  },
-  "bo-default": {
-    filled: [
-      "focus-visible:shadow-bo-btn focus-visible:ring-0",
-      "text-bo-gray-700 bg-bo-white border-bo-gray-200",
-      "hover:text-bo-gray-800 hover:shadow-bo-btn",
-      "disabled:opacity-50 disabled:bg-transparent disabled:hover:shadow-none",
-    ],
-    outlined: [
-      "focus-visible:shadow-bo-btn focus-visible:ring-0",
-      "text-bo-gray-700  border-text-50",
-      "hover:text-bo-gray-800 hover:border-gray-500/[.32] hover:shadow-bo-btn",
-      "disabled:opacity-50 disabled:bg-transparent disabled:hover:shadow-none",
-    ],
-    text: [
-      "focus-visible:shadow-bo-btn focus-visible:ring-0",
-      "text-bo-gray-700 border-none",
-      "hover:bg-bo-gray-100",
-      "disabled:opacity-50 disabled:bg-transparent disabled:hover:shadow-none",
-    ],
+    text: ["focus-visible:to-blue-400", "border-none", "disabled:hover:drop-shadow-none"],
   },
 } as const;
 
-const shapeClasses = {
-  square: "rounded-none",
-  rounded: "rounded-lg",
-  pill: "rounded-full",
-} as const;
+const sizeClasses = {
+  large: "px-4 py-2 leading-28 text-16",
+  small: "px-2 py-1 font-regular leading-24 ",
+};
 
 /**
  * Prop types
@@ -141,12 +63,12 @@ type TagProps =
   | ComponentPropsWithoutRef<"a">;
 type Color = keyof typeof colorClasses;
 type Variant = keyof (typeof colorClasses)[Color];
-type Shape = keyof typeof shapeClasses;
+type Size = keyof typeof sizeClasses;
 type BaseProps = {
   as?: "button" | "a" | typeof Link | typeof BaseButton;
   color?: Color;
   variant?: Variant;
-  shape?: Shape;
+  size?: Size;
   isLoading?: boolean;
   disabled?: boolean;
 };
@@ -160,16 +82,16 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, Props>(
     {
       as,
       type,
-      color = "primary",
+      color = "gray",
       variant = "filled",
-      shape = "rounded",
+      size = "small",
       children,
       className = "",
       isLoading = false,
       disabled,
       ...props
     },
-    forwardRef
+    forwardRef,
   ) => {
     const Tag = as || "button";
 
@@ -180,18 +102,13 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, Props>(
         ref={forwardRef}
         type={type || "button"}
         disabled={isLoading || disabled}
-        className={clsx([
-          baseClasses,
-          colorClasses[color][variant],
-          shapeClasses[shape],
-          className,
-        ])}
+        className={clsx([baseClasses, colorClasses[color][variant], sizeClasses[size], className])}
         {...(Tag === Link ? { prefetch: false } : {})}
       >
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 Button.displayName = "DebuggedButton";

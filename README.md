@@ -1,40 +1,48 @@
-# Welcome to Remix!
+## Development | manual testing
 
-- 📖 [Remix docs](https://remix.run/docs)
-
-## Development
-
-Run the dev server:
+start with docker
 
 ```shellscript
-npm run dev
+./start.sh
 ```
 
-## Deployment
+start with pnpm
 
-First, build your app for production:
-
-```sh
-npm run build
+```shellscript
+pnpm i
+pnpm run dev
 ```
 
-Then run the app in production mode:
+---
 
-```sh
-npm start
-```
+## Non-functional Requirements
 
-Now you'll need to pick a host to deploy it to.
+- Mimicing the structure of real projects.
+- Codebase should me readable, reusable and composable.
+- Codebase should be adaptable to requirement changes.
+- Be balanced between develop fast and ability to improve quality (UI/UX) in the long run.
+- Typesafe
 
-### DIY
+## Technical Decisions
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+### Technical Stack
 
-Make sure to deploy the output of `npm run build`
+- React-aria-components(RAC) for UI systems. This library is best in class for accessibility, headless-ui for customization and saving unused CSS for small bundle size. Others libraries (Antd,Material) is good for fast developement but much worse for customization and accessibility, bundle size is also much larger because of difficulty in tree-shaking. The downside of RAC is not support Multis-Select and Column Rearrangement by drag an drop.
+- Tailwindcss for small bundle size, easier for static caching (CDN,local,...) and design system linter.
+- Remix for server side rendering. Acting as a replacement for expressjs. Remix is also good enough as a server-state manager.
+- React-hook-form because I'm running out of time. But RHF is also powerful for handling forms.
+- Typescript
 
-- `build/server`
-- `build/client`
+### Structures
 
-## Styling
+- Components should be divided into 3 layers.
+  - Layer 1: Builders for compound component (~/builders). This layer build connected components for compound patterns (ex: th,td,tbody,... in a table, connected together by context). These components should be business-isolated and used for build Layer 2.
+  - Layer 2: Base components (BaseInput, BaseSelect,...). These components should be maximized for customizing but a bit verbose to use directly. This layer will be in charge for requirement changes.
+  - Layer 3: Usable components (FormInput, FormSelect,...). These components should be easy to use (by passing some props).
+- Reusable code will be located anywhere except ~/routes. All the code located in a specific route folder is only used for that route. Most of code should be located in routes (like a layer 4 components)
+- All Notion's types is extract from their SDK instead of manually define.
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+### Unfinished task
+
+- Column rearrangement by drag an drop. I've planed to manually implement this feature but currently impossible because of RAC's TH is preventing drag event on header (https://github.com/adobe/react-spectrum/issues/6195). If having more time, I will replace RAC's table with Tanstack-table. All the changes should be done in ~/builders
+- Missing Unit test. Time is running out (30 mins left) and I dont know how to write unit test for Frontend.

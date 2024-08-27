@@ -1,15 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import clsx from "clsx";
 import { ResizableTableContainer } from "react-aria-components";
 
-import {
-  Cell,
-  Column,
-  ResizableColumn,
-  Row,
-  Table,
-  TableBody,
-  TableHeader,
-} from "~/builders/table";
+import { Cell, ResizableColumn, Row, Table, TableBody, TableHeader } from "~/builders/table";
 
 export type BaseTableHeader = {
   title: string;
@@ -21,18 +14,29 @@ export type BaseTableHeader = {
 type Props = {
   headers: BaseTableHeader[];
   records: Record<string, any>[];
+  isLoading?: boolean;
 };
 
-export const BaseTable = ({ headers, records }: Props) => {
+export const BaseTable = ({ headers, records, isLoading }: Props) => {
   return (
-    <div className="max-w-full overflow-auto">
+    <div
+      className={clsx("relative max-w-full overflow-auto bg-white", {
+        "bg-slate-200 opacity-60 transition-all": isLoading,
+      })}
+    >
       <ResizableTableContainer>
         <Table>
           <TableHeader>
             {headers.map(({ title, resizable, field }, idx) => {
-              //Not allow to resize the last column
-              const Col = resizable && idx !== headers.length - 1 ? ResizableColumn : Column;
-              return <Col key={field}>{title}</Col>;
+              return (
+                <ResizableColumn
+                  isRowHeader={idx === 0}
+                  key={field}
+                  resizable={resizable && idx !== headers.length - 1}
+                >
+                  {title}
+                </ResizableColumn>
+              );
             })}
           </TableHeader>
           <TableBody>
